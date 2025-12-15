@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+spring:
+  ai:
+    bedrock:
+      region: ap-south-1
+      anthropic:
+        chat:
+          model: anthropic.claude-v2
+          temperature: 0.2
+          max-tokens: 500
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: genai-group
+      auto-offset-reset: earliest
+
+logging:
+  level:
+    root: INFO
