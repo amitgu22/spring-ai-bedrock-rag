@@ -43,44 +43,6 @@ Spring AI (ChatClient)
                v
            Final AI Answer
 ________________________________________
-📁 Project Structure
-spring-ai-bedrock-rag
- ├── controller     → REST APIs
- ├── service        → GenAI, RAG, PII logic
- ├── ai             → Bedrock configuration
- ├── kafka          → Event-driven GenAI
- ├── audit          → Prompt auditing hooks
- └── resources      → Config & prompt templates
-________________________________________
-🔹 Component-Level Explanation
-1️⃣ GenAIController
-Responsibility - Exposes REST endpoints for GenAI interactions - /ai/chat → Direct LLM calls - /ai/rag → Context-aware answers using RAG
-Why it exists - Keeps API layer thin - Delegates intelligence to service layer
-________________________________________
-2️⃣ ChatService
-Responsibility - Central GenAI gateway - Applies PII masking before sending prompts - Invokes Spring AI ChatClient
-Why it exists - Single place for AI governance - Easy to add caching, rate limits, or retries
-________________________________________
-3️⃣ PiiMaskingService
-Responsibility - Masks Aadhaar, account numbers, sensitive data
-Why it exists - Mandatory for BFSI & enterprise compliance - Prevents raw customer data from reaching LLMs
-________________________________________
-4️⃣ RAGService (Retrieval Augmented Generation)
-Responsibility - Retrieves relevant documents via vector similarity - Builds augmented prompt with enterprise context
-Why it exists - Prevents hallucinations - Keeps GenAI grounded in internal knowledge
-________________________________________
-5️⃣ Kafka ComplaintConsumer
-Responsibility - Consumes complaint events - Auto-summarizes, detects sentiment, categorizes
-Why it exists - Demonstrates event-driven GenAI - Shows GenAI beyond REST APIs
-________________________________________
-6️⃣ BedrockConfig
-Responsibility - Configures Spring AI ChatClient - Abstracts LLM provider from business logic
-Why it exists - Model/provider can be switched without code changes
-________________________________________
-7️⃣ Prompt Audit Layer
-Responsibility - Tracks prompt usage - Enables audit, debugging, and compliance
-Why it exists - GenAI is probabilistic → auditability is critical
-________________________________________
 🔐 Security & Governance
 •	✔ PII masking before prompts
 •	✔ No customer data stored in prompts
